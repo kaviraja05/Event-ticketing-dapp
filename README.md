@@ -1,13 +1,27 @@
-# Sample Hardhat Project
+# 🎟️ Event Ticketing DApp
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a Hardhat Ignition module that deploys that contract.
+A decentralized event ticketing platform using NFTs built on the Ethereum blockchain.
 
-Try running some of the following tasks:
+---
 
-```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat ignition deploy ./ignition/modules/Lock.js
-```
+## 🚀 Features
+
+- 🪙 NFT-based ticket minting
+- 🎫 View & manage your tickets
+- 🔐 Wallet integration (MetaMask)
+- 📱 QR code support for verification
+- 💡 Clean responsive frontend
+
+---
+
+## 🛠️ Tech Stack
+
+- **Smart Contracts:** Solidity, Hardhat
+- **Frontend:** HTML, CSS, JavaScript
+- **Wallet:** MetaMask
+- **Blockchain:** Ethereum (Local & Testnet)
+
+---
+
+## 📦 Folder Structure
+
