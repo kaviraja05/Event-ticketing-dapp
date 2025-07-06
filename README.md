@@ -23,6 +23,7 @@ A decentralized event ticketing platform using NFTs built on the Ethereum blockc
 
 ---
 
+
 ## 📦 Folder Structure
 event-ticketing-dapp/
 ├── contracts/ # Solidity smart contracts (NFT, marketplace)
