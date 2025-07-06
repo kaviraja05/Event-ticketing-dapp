@@ -4,6 +4,15 @@ A decentralized event ticketing platform using NFTs built on the Ethereum blockc
 
 ---
 
+
+## 🌐 Live Demo
+
+📲 Try the app here:  
+🔗 **[https://kaviraja05.github.io/Event-ticketing-dapp/](https://kaviraja05.github.io/Event-ticketing-dapp/)**
+
+> Works on all browsers. MetaMask required for full functionality.
+
+---
 ## 🚀 Features
 
 - 🪙 NFT-based ticket minting
