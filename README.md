@@ -24,4 +24,19 @@ A decentralized event ticketing platform using NFTs built on the Ethereum blockc
 ---
 
 ## 📦 Folder Structure
+event-ticketing-dapp/
+├── contracts/ # Solidity smart contracts (NFT, marketplace)
+├── frontend/
+│ └── new-design/ # Main frontend (HTML, CSS, JS)
+│ ├── css/ # Styling files
+│ ├── images/ # Event images, QR placeholders
+│ ├── js/ # JavaScript logic
+│ └── index.html # Home page
+├── scripts/ # Contract deployment scripts
+├── test/ # Unit tests for contracts
+├── README.md # Project overview
+├── .gitignore # Files to ignore in Git
+├── package.json # Project metadata & dependencies
+└── hardhat.config.js # Hardhat configuration
+
 
