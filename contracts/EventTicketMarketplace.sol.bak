@@ -1,0 +1,140 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "./EventTicketNFT.sol";
+import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
+import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
+
+/**
+ * @title EventTicketMarketplace
+ * @dev Secondary marketplace for event tickets with anti-scalping measures
+ */
+contract EventTicketMarketplace is Ownable, ReentrancyGuard {
+    // Ticket listing structure
+    struct Listing {
+        address seller;
+        uint256 price;
+        bool active;
+    }
+    
+    // Event ticket contract
+    EventTicketNFT public ticketContract;
+    
+    // Mapping from token ID to listing details
+    mapping(uint256 => Listing) public listings;
+    
+    // Events
+    event TicketListed(uint256 indexed tokenId, address indexed seller, uint256 price);
+    event TicketSold(uint256 indexed tokenId, address indexed seller, address indexed buyer, uint256 price);
+    event ListingCancelled(uint256 indexed tokenId, address indexed seller);
+    
+    // Fee percentage (in basis points, e.g., 250 = 2.5%)
+    uint256 public feePercentage = 250;
+    
+    constructor(address _ticketContract, address initialOwner) Ownable(initialOwner) {
+        ticketContract = EventTicketNFT(_ticketContract);
+    }
+    
+    /**
+     * @dev List a ticket for sale
+     * @param tokenId The ID of the ticket to list
+     * @param price The price in wei
+     */
+    function listTicket(uint256 tokenId, uint256 price) external {
+        // Check if price is below max resale price
+        require(price <= ticketContract.maxResalePrice(), "Price exceeds maximum allowed");
+        
+        // Check if seller owns the ticket
+        require(ticketContract.ownerOf(tokenId) == msg.sender, "Not the ticket owner");
+        
+        // Check if transfer is allowed (not after lock time)
+        require(block.timestamp < ticketContract.lockTimestamp() || 
+                ticketContract.approvedTransfers(tokenId), 
+                "Ticket is locked for transfer");
+        
+        // Approve marketplace to transfer the ticket
+        IERC721(address(ticketContract)).setApprovalForAll(address(this), true);
+        
+        // Create listing
+        listings[tokenId] = Listing({
+            seller: msg.sender,
+            price: price,
+            active: true
+        });
+        
+        emit TicketListed(tokenId, msg.sender, price);
+    }
+    
+    /**
+     * @dev Buy a listed ticket
+     * @param tokenId The ID of the ticket to buy
+     */
+    function buyTicket(uint256 tokenId) external payable nonReentrant {
+        Listing memory listing = listings[tokenId];
+        
+        // Check if listing is active
+        require(listing.active, "Ticket not listed for sale");
+        
+        // Check if enough ETH was sent
+        require(msg.value >= listing.price, "Insufficient payment");
+        
+        // Check if seller still owns the ticket
+        require(ticketContract.ownerOf(tokenId) == listing.seller, "Seller no longer owns the ticket");
+        
+        // Calculate fee
+        uint256 fee = (listing.price * feePercentage) / 10000;
+        uint256 sellerAmount = listing.price - fee;
+        
+        // Mark listing as inactive
+        listings[tokenId].active = false;
+        
+        // Transfer ticket to buyer
+        ticketContract.transferTicket(listing.seller, msg.sender, tokenId);
+        
+        // Transfer funds to seller
+        (bool success, ) = payable(listing.seller).call{value: sellerAmount}("");
+        require(success, "Failed to send ETH to seller");
+        
+        emit TicketSold(tokenId, listing.seller, msg.sender, listing.price);
+        
+        // Refund excess payment
+        if (msg.value > listing.price) {
+            (bool refundSuccess, ) = payable(msg.sender).call{value: msg.value - listing.price}("");
+            require(refundSuccess, "Failed to refund excess payment");
+        }
+    }
+    
+    /**
+     * @dev Cancel a ticket listing
+     * @param tokenId The ID of the ticket listing to cancel
+     */
+    function cancelListing(uint256 tokenId) external {
+        require(listings[tokenId].seller == msg.sender, "Not the listing creator");
+        require(listings[tokenId].active, "Listing not active");
+        
+        listings[tokenId].active = false;
+        
+        emit ListingCancelled(tokenId, msg.sender);
+    }
+    
+    /**
+     * @dev Update the fee percentage (only owner)
+     * @param _feePercentage New fee percentage in basis points (e.g., 250 = 2.5%)
+     */
+    function setFeePercentage(uint256 _feePercentage) external onlyOwner {
+        require(_feePercentage <= 1000, "Fee cannot exceed 10%");
+        feePercentage = _feePercentage;
+    }
+    
+    /**
+     * @dev Withdraw accumulated fees (only owner)
+     */
+    function withdrawFees() external onlyOwner {
+        uint256 balance = address(this).balance;
+        require(balance > 0, "No fees to withdraw");
+        
+        (bool success, ) = payable(owner()).call{value: balance}("");
+        require(success, "Failed to withdraw fees");
+    }
+}

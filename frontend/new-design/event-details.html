@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Details - BlockTix</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/events.css">
+  <link rel="stylesheet" href="css/image-adjustments.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolled">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-ticket-alt me-2"></i>BlockTix
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="events.html">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="my-tickets.html">My Tickets</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="marketplace.html">Marketplace</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <div id="network-badge" class="network-badge me-3">
+            <span class="dot"></span>
+            <span id="network-name">Not Connected</span>
+          </div>
+          <button id="connect-wallet" class="btn btn-outline-light">
+            <i class="fas fa-wallet me-2"></i>Connect Wallet
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Event Details Section -->
+  <section class="event-details-section py-5 mt-5">
+    <div class="container">
+      <div id="event-loading" class="text-center py-5">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <p class="mt-3">Loading event details...</p>
+      </div>
+
+      <div id="event-details-container" class="d-none">
+        <div class="row">
+          <!-- Event Image and Basic Info -->
+          <div class="col-lg-6 mb-4">
+            <div class="event-image-container">
+              <div class="event-date">
+                <span id="event-month" class="month">JUN</span>
+                <span id="event-day" class="day">15</span>
+              </div>
+              <img id="event-image" src="images/event-placeholder.jpg" class="img-fluid rounded" alt="Event">
+            </div>
+
+            <div class="event-meta mt-4">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <span id="event-category" class="badge bg-primary">Concerts</span>
+                <div class="social-share">
+                  <a href="#" class="me-2"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-telegram-plane"></i></a>
+                </div>
+              </div>
+
+              <div class="event-info-card">
+                <div class="info-item">
+                  <i class="fas fa-calendar-alt"></i>
+                  <div>
+                    <span class="label">Date & Time</span>
+                    <span id="event-datetime" class="value">June 15, 2023 • 7:00 PM</span>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <div>
+                    <span class="label">Location</span>
+                    <span id="event-location" class="value">Central Park, New York</span>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <i class="fas fa-ticket-alt"></i>
+                  <div>
+                    <span class="label">Ticket Price</span>
+                    <span id="event-price" class="value">0.05 ETH</span>
+                  </div>
+                </div>
+                <div class="info-item">
+                  <i class="fas fa-user-friends"></i>
+                  <div>
+                    <span class="label">Organizer</span>
+                    <span id="event-organizer" class="value">BlockTix Events</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Event Details and Purchase -->
+          <div class="col-lg-6">
+            <h1 id="event-title" class="mb-4">Summer Music Festival</h1>
+
+            <div class="event-description mb-4">
+              <h4>About This Event</h4>
+              <div id="event-description">
+                <p>Join us for an unforgettable summer music festival featuring top artists from around the world. Experience amazing performances across multiple stages in the heart of Central Park.</p>
+                <p>This year's lineup includes Grammy-winning artists and emerging talents that will make this an event to remember. Food vendors, art installations, and interactive experiences will be available throughout the venue.</p>
+              </div>
+            </div>
+
+            <div class="ticket-purchase-card">
+              <h4>Purchase Tickets</h4>
+              <div class="ticket-options mb-4">
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="ticketType" id="generalAdmission" checked>
+                  <label class="form-check-label d-flex justify-content-between w-100" for="generalAdmission">
+                    <span>General Admission</span>
+                    <span id="general-price">0.05 ETH</span>
+                  </label>
+                </div>
+                <div class="form-check">
+                  <input class="form-check-input" type="radio" name="ticketType" id="vipAccess">
+                  <label class="form-check-label d-flex justify-content-between w-100" for="vipAccess">
+                    <span>VIP Access</span>
+                    <span id="vip-price">0.15 ETH</span>
+                  </label>
+                </div>
+              </div>
+
+              <div class="ticket-quantity mb-4">
+                <label for="quantity" class="form-label">Quantity</label>
+                <div class="input-group">
+                  <button class="btn btn-outline-secondary" type="button" id="decrease-quantity">-</button>
+                  <input type="number" class="form-control text-center" id="quantity" value="1" min="1" max="10">
+                  <button class="btn btn-outline-secondary" type="button" id="increase-quantity">+</button>
+                </div>
+                <small class="text-muted">Maximum 10 tickets per transaction</small>
+              </div>
+
+              <div class="d-grid gap-2">
+                <button id="purchase-btn" class="btn btn-primary btn-lg">
+                  <i class="fas fa-shopping-cart me-2"></i>Purchase Tickets
+                </button>
+                <div id="wallet-required" class="text-center d-none">
+                  <p class="text-muted mb-2">Please connect your wallet to purchase tickets</p>
+                  <button id="connect-wallet-purchase" class="btn btn-outline-primary">
+                    <i class="fas fa-wallet me-2"></i>Connect Wallet
+                  </button>
+                </div>
+              </div>
+
+              <div class="ticket-info mt-3">
+                <small class="text-muted">
+                  <i class="fas fa-info-circle me-1"></i>
+                  Tickets are NFTs minted on the blockchain. Once purchased, they will appear in your wallet and "My Tickets" section.
+                </small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Details Tabs -->
+        <div class="event-tabs mt-5">
+          <ul class="nav nav-tabs" id="eventTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+              <button class="nav-link active" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab">Details</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="lineup-tab" data-bs-toggle="tab" data-bs-target="#lineup" type="button" role="tab">Lineup</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="venue-tab" data-bs-toggle="tab" data-bs-target="#venue" type="button" role="tab">Venue</button>
+            </li>
+            <li class="nav-item" role="presentation">
+              <button class="nav-link" id="faq-tab" data-bs-toggle="tab" data-bs-target="#faq" type="button" role="tab">FAQ</button>
+            </li>
+          </ul>
+          <div class="tab-content p-4 bg-light rounded-bottom" id="eventTabsContent">
+            <div class="tab-pane fade show active" id="details" role="tabpanel">
+              <h4>Event Details</h4>
+              <p>The Summer Music Festival is a celebration of music, art, and community. This all-day event features multiple stages with continuous performances from noon until midnight.</p>
+              <p>What to expect:</p>
+              <ul>
+                <li>12+ hours of live music</li>
+                <li>Food and beverage vendors</li>
+                <li>Art installations and interactive experiences</li>
+                <li>Merchandise booths</li>
+                <li>Chill-out zones</li>
+              </ul>
+              <p>All ages are welcome. Children under 10 enter free with a paying adult.</p>
+            </div>
+            <div class="tab-pane fade" id="lineup" role="tabpanel">
+              <h4>Artist Lineup</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Main Stage</h5>
+                  <ul class="list-unstyled">
+                    <li>7:00 PM - Headliner Act</li>
+                    <li>5:30 PM - Supporting Act 1</li>
+                    <li>4:00 PM - Supporting Act 2</li>
+                    <li>2:30 PM - Supporting Act 3</li>
+                    <li>1:00 PM - Opening Act</li>
+                  </ul>
+                </div>
+                <div class="col-md-6">
+                  <h5>Second Stage</h5>
+                  <ul class="list-unstyled">
+                    <li>6:30 PM - Featured Artist 1</li>
+                    <li>5:00 PM - Featured Artist 2</li>
+                    <li>3:30 PM - Featured Artist 3</li>
+                    <li>2:00 PM - Featured Artist 4</li>
+                    <li>12:30 PM - Featured Artist 5</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="venue" role="tabpanel">
+              <h4>Venue Information</h4>
+              <div class="row">
+                <div class="col-md-6">
+                  <h5>Location</h5>
+                  <p>Central Park, New York City</p>
+                  <p>The event will take place in the Great Lawn area of Central Park.</p>
+                  <h5>Getting There</h5>
+                  <p><strong>Public Transit:</strong> Take the A, B, C, D, or 1 train to 86th Street.</p>
+                  <p><strong>Parking:</strong> Limited parking available at nearby garages. We recommend using public transportation.</p>
+                </div>
+                <div class="col-md-6">
+                  <div class="venue-map" id="venue-map">
+                    <!-- Map will be generated by JavaScript -->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane fade" id="faq" role="tabpanel">
+              <h4>Frequently Asked Questions</h4>
+              <div class="accordion" id="faqAccordion">
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqOne">
+                      What happens if it rains?
+                    </button>
+                  </h2>
+                  <div id="faqOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                      The event will proceed rain or shine. In case of severe weather, announcements will be made regarding any schedule changes or safety procedures.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqTwo">
+                      Can I bring my own food and drinks?
+                    </button>
+                  </h2>
+                  <div id="faqTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                      Small snacks and sealed water bottles are permitted. No outside alcoholic beverages, glass containers, or large coolers are allowed.
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqThree">
+                      How do I access my NFT ticket at the event?
+                    </button>
+                  </h2>
+                  <div id="faqThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                    <div class="accordion-body">
+                      Your NFT ticket will be available in the "My Tickets" section of the BlockTix app. Staff at the entrance will scan the QR code displayed on your ticket. Make sure your phone is charged!
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <h5 class="text-white mb-4">
+            <i class="fas fa-ticket-alt me-2"></i>BlockTix
+          </h5>
+          <p class="text-light">Revolutionizing event ticketing with blockchain technology. Secure, transparent, and fair for everyone.</p>
+          <div class="social-icons mt-4">
+            <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="me-3"><i class="fab fa-discord"></i></a>
+            <a href="#" class="me-3"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-medium"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+          <h5 class="text-white mb-4">Platform</h5>
+          <ul class="list-unstyled footer-links">
+            <li><a href="events.html">Events</a></li>
+            <li><a href="my-tickets.html">My Tickets</a></li>
+            <li><a href="marketplace.html">Marketplace</a></li>
+            <li><a href="#">Create Event</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+          <h5 class="text-white mb-4">Resources</h5>
+          <ul class="list-unstyled footer-links">
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">API</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <h5 class="text-white mb-4">Stay Updated</h5>
+          <p class="text-light">Subscribe to our newsletter for the latest updates and events.</p>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Your email">
+            <button class="btn btn-primary" type="button">Subscribe</button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="mt-4 mb-4 border-light">
+
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+          <p class="mb-0 text-light">© 2023 BlockTix. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            <li class="list-inline-item"><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script src="js/image-helper.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/event-details.js"></script>
+</body>
+</html>

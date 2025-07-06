@@ -1,0 +1,58 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.20;
+
+import "./EventTicketNFT.sol";
+
+contract EventTicketNFTBatchMint is EventTicketNFT {
+    // Batch minting event
+    event BatchMinted(address indexed to, uint256[] tokenIds);
+
+    constructor(
+        string memory name,
+        string memory symbol,
+        uint128 _maxResalePrice,
+        uint256 _lockTimestamp,
+        address initialOwner
+    ) EventTicketNFT(name, symbol, _maxResalePrice, _lockTimestamp, initialOwner) {}
+
+    /**
+     * @dev Batch mint multiple tickets at once to save gas
+     * @param to Address to mint tickets to
+     * @param uris Array of token URIs for each ticket
+     * @return tokenIds Array of minted token IDs
+     */
+    function batchMintTickets(address to, string[] memory uris) 
+        public 
+        onlyOwner 
+        returns (uint256[] memory tokenIds) 
+    {
+        require(uris.length > 0, "Must mint at least one ticket");
+        
+        tokenIds = new uint256[](uris.length);
+        
+        for (uint256 i = 0; i < uris.length; i++) {
+            uint256 tokenId = nextTicketId;
+            
+            // Use _mint instead of _safeMint for gas efficiency
+            _mint(to, tokenId);
+            
+            // Store URI
+            _tokenURIs[tokenId] = uris[i];
+            _exists[tokenId] = true;
+            
+            // Track user tokens
+            _userTokens[to].push(tokenId);
+            
+            // Store token ID
+            tokenIds[i] = tokenId;
+            
+            // Increment counter
+            nextTicketId++;
+        }
+        
+        // Emit batch minted event
+        emit BatchMinted(to, tokenIds);
+        
+        return tokenIds;
+    }
+}
