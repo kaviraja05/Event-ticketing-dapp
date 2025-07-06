@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tickets - BlockTix</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/tickets.css">
+  <link rel="stylesheet" href="css/image-adjustments.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolled">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-ticket-alt me-2"></i>BlockTix
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="events.html">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="my-tickets.html">My Tickets</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="marketplace.html">Marketplace</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <div id="network-badge" class="network-badge me-3">
+            <span class="dot"></span>
+            <span id="network-name">Not Connected</span>
+          </div>
+          <button id="connect-wallet" class="btn btn-outline-light">
+            <i class="fas fa-wallet me-2"></i>Connect Wallet
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>My Tickets</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">My Tickets</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Tickets Section -->
+  <section class="tickets-section py-5">
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-md-6">
+          <div class="d-flex align-items-center">
+            <h2 class="mb-0 me-3">Your Ticket Collection</h2>
+            <span id="ticket-count" class="badge bg-primary">0</span>
+          </div>
+          <p class="text-muted">Manage your NFT tickets for upcoming and past events</p>
+        </div>
+        <div class="col-md-6 text-md-end">
+          <div class="btn-group mb-2">
+            <button id="view-all" class="btn btn-outline-primary active">All Tickets</button>
+            <button id="view-upcoming" class="btn btn-outline-primary">Upcoming</button>
+            <button id="view-past" class="btn btn-outline-primary">Past</button>
+          </div>
+          <div>
+            <button id="fix-duplicates" class="btn btn-sm btn-outline-danger">
+              <i class="fas fa-broom me-1"></i>Fix Duplicates
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Wallet Not Connected Message -->
+      <div id="wallet-not-connected" class="text-center py-5 my-4 bg-light rounded">
+        <i class="fas fa-wallet text-primary mb-3" style="font-size: 3rem;"></i>
+        <h3>Connect Your Wallet</h3>
+        <p class="text-muted mb-4">Please connect your wallet to view your tickets</p>
+        <button id="connect-wallet-tickets" class="btn btn-primary">
+          <i class="fas fa-wallet me-2"></i>Connect Wallet
+        </button>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div id="loading-tickets" class="text-center py-5 my-4 d-none">
+        <div class="spinner-border text-primary mb-3" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+        <h3>Loading Your Tickets</h3>
+        <p class="text-muted">Please wait while we fetch your tickets from the blockchain</p>
+      </div>
+
+      <!-- No Tickets Message -->
+      <div id="no-tickets" class="text-center py-5 my-4 bg-light rounded d-none">
+        <i class="fas fa-ticket-alt text-primary mb-3" style="font-size: 3rem;"></i>
+        <h3>No Tickets Found</h3>
+        <p class="text-muted mb-4">You don't have any tickets yet</p>
+        <a href="events.html" class="btn btn-primary">
+          <i class="fas fa-search me-2"></i>Browse Events
+        </a>
+      </div>
+
+      <!-- Tickets Container -->
+      <div id="tickets-container" class="row g-4 d-none">
+        <!-- Ticket cards will be dynamically added here -->
+
+        <!-- Example Ticket Card (will be generated dynamically) -->
+        <div class="col-lg-4 col-md-6">
+          <div class="ticket-card">
+            <div class="ticket-header">
+              <div class="event-logo">
+                <img src="images/event-1.jpg" alt="Event">
+              </div>
+              <div class="ticket-status upcoming">
+                <i class="fas fa-clock me-1"></i>Upcoming
+              </div>
+            </div>
+            <div class="ticket-body">
+              <h3 class="event-name">Summer Music Festival</h3>
+              <div class="event-details">
+                <div class="detail">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span>June 15, 2023 • 7:00 PM</span>
+                </div>
+                <div class="detail">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span>Central Park, New York</span>
+                </div>
+                <div class="detail">
+                  <i class="fas fa-ticket-alt"></i>
+                  <span>Token ID: #123</span>
+                </div>
+              </div>
+            </div>
+            <div class="ticket-actions">
+              <button class="btn btn-sm btn-outline-primary view-ticket" data-id="123">
+                <i class="fas fa-eye me-1"></i>View
+              </button>
+              <button class="btn btn-sm btn-outline-secondary transfer-ticket" data-id="123">
+                <i class="fas fa-exchange-alt me-1"></i>Transfer
+              </button>
+              <button class="btn btn-sm btn-outline-success sell-ticket" data-id="123">
+                <i class="fas fa-tag me-1"></i>Sell
+              </button>
+            </div>
+            <div class="ticket-footer">
+              <div class="qr-code">
+                <img src="images/qr-placeholder.png" alt="QR Code">
+              </div>
+              <div class="ticket-info">
+                <div class="seat-info">General Admission</div>
+                <div class="price-info">Purchased for 0.05 ETH</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Ticket Modal -->
+  <div class="modal fade" id="ticketModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Ticket Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="ticket-image mb-3">
+                <img src="images/event-1.jpg" alt="Event" class="img-fluid rounded">
+              </div>
+              <div class="ticket-qr text-center">
+                <div id="modal-qr-code" class="mb-2"></div>
+                <p class="text-muted small">Scan this QR code at the event entrance</p>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <h3 id="modal-event-name">Summer Music Festival</h3>
+              <div class="ticket-details mb-4">
+                <div class="detail">
+                  <i class="fas fa-calendar-alt"></i>
+                  <span id="modal-event-date">June 15, 2023 • 7:00 PM</span>
+                </div>
+                <div class="detail">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <span id="modal-event-location">Central Park, New York</span>
+                </div>
+                <div class="detail">
+                  <i class="fas fa-ticket-alt"></i>
+                  <span id="modal-ticket-id">Token ID: #123</span>
+                </div>
+                <div class="detail">
+                  <i class="fas fa-user"></i>
+                  <span id="modal-ticket-owner">Owner: 0x1234...5678</span>
+                </div>
+              </div>
+
+              <div class="ticket-metadata mb-4">
+                <h5>Ticket Information</h5>
+                <div class="metadata-item">
+                  <span class="label">Type:</span>
+                  <span id="modal-ticket-type" class="value">General Admission</span>
+                </div>
+                <div class="metadata-item">
+                  <span class="label">Purchase Date:</span>
+                  <span id="modal-purchase-date" class="value">May 20, 2023</span>
+                </div>
+                <div class="metadata-item">
+                  <span class="label">Purchase Price:</span>
+                  <span id="modal-purchase-price" class="value">0.05 ETH</span>
+                </div>
+              </div>
+
+              <div class="ticket-actions">
+                <button id="modal-transfer-btn" class="btn btn-outline-primary me-2">
+                  <i class="fas fa-exchange-alt me-1"></i>Transfer
+                </button>
+                <button id="modal-sell-btn" class="btn btn-outline-success me-2">
+                  <i class="fas fa-tag me-1"></i>Sell
+                </button>
+                <a id="modal-view-on-explorer" href="#" target="_blank" class="btn btn-outline-secondary">
+                  <i class="fas fa-external-link-alt me-1"></i>View on Explorer
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Transfer Modal -->
+  <div class="modal fade" id="transferModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Transfer Ticket</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="recipient-address" class="form-label">Recipient Address</label>
+            <input type="text" class="form-control" id="recipient-address" placeholder="0x...">
+          </div>
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            Transferring this ticket will send it to another wallet. This action cannot be undone.
+          </div>
+          <div id="transfer-status"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="confirm-transfer" class="btn btn-primary">
+            <i class="fas fa-paper-plane me-1"></i>Transfer Ticket
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sell Ticket Modal -->
+  <div class="modal fade" id="sellModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">List Ticket for Sale</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="ticket-info-preview mb-4">
+            <div class="d-flex align-items-center mb-3">
+              <div class="ticket-preview-image me-3">
+                <img id="sell-ticket-image" src="images/event-placeholder.jpg" alt="Event" class="img-fluid rounded" style="width: 80px; height: 80px; object-fit: cover;">
+              </div>
+              <div>
+                <h5 id="sell-ticket-name" class="mb-1">Event Name</h5>
+                <p id="sell-ticket-details" class="text-muted mb-0">Date • Location</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="listing-price" class="form-label">Listing Price (ETH)</label>
+            <input type="number" class="form-control" id="listing-price" step="0.001" min="0.001" max="1" placeholder="0.05">
+            <div class="form-text">Set a price between 0.001 and 1 ETH</div>
+          </div>
+
+          <div class="alert alert-info">
+            <i class="fas fa-info-circle me-2"></i>
+            Listing your ticket will make it available for purchase by other users in the marketplace.
+          </div>
+          <div id="sell-status"></div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" id="confirm-listing" class="btn btn-primary">
+            <i class="fas fa-tag me-1"></i>List for Sale
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <h5 class="text-white mb-4">
+            <i class="fas fa-ticket-alt me-2"></i>BlockTix
+          </h5>
+          <p class="text-light">Revolutionizing event ticketing with blockchain technology. Secure, transparent, and fair for everyone.</p>
+          <div class="social-icons mt-4">
+            <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="me-3"><i class="fab fa-discord"></i></a>
+            <a href="#" class="me-3"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-medium"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+          <h5 class="text-white mb-4">Platform</h5>
+          <ul class="list-unstyled footer-links">
+            <li><a href="events.html">Events</a></li>
+            <li><a href="my-tickets.html">My Tickets</a></li>
+            <li><a href="marketplace.html">Marketplace</a></li>
+            <li><a href="#">Create Event</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+          <h5 class="text-white mb-4">Resources</h5>
+          <ul class="list-unstyled footer-links">
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">API</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <h5 class="text-white mb-4">Stay Updated</h5>
+          <p class="text-light">Subscribe to our newsletter for the latest updates and events.</p>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Your email">
+            <button class="btn btn-primary" type="button">Subscribe</button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="mt-4 mb-4 border-light">
+
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+          <p class="mb-0 text-light">© 2023 BlockTix. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            <li class="list-inline-item"><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <script src="js/image-helper.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/tickets.js"></script>
+  <script src="js/debug.js"></script>
+</body>
+</html>

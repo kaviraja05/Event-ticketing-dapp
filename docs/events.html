@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events - BlockTix</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/image-adjustments.css">
+  <link rel="stylesheet" href="css/events.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg navbar-dark fixed-top scrolled">
+    <div class="container">
+      <a class="navbar-brand" href="index.html">
+        <i class="fas fa-ticket-alt me-2"></i>BlockTix
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="events.html">Events</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="my-tickets.html">My Tickets</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="marketplace.html">Marketplace</a>
+          </li>
+        </ul>
+        <div class="d-flex align-items-center">
+          <div id="network-badge" class="network-badge me-3">
+            <span class="dot"></span>
+            <span id="network-name">Not Connected</span>
+          </div>
+          <button id="connect-wallet" class="btn btn-outline-light">
+            <i class="fas fa-wallet me-2"></i>Connect Wallet
+          </button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="container">
+      <h1>Upcoming Events</h1>
+      <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Events</li>
+        </ol>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Events Section -->
+  <section class="events-section py-5">
+    <div class="container">
+      <!-- Search and Filter -->
+      <div class="row mb-4">
+        <div class="col-md-6 mb-3 mb-md-0">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search events..." id="event-search">
+            <button class="btn btn-primary" type="button">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex justify-content-md-end">
+          <div class="btn-group">
+            <button id="filter-all" class="btn btn-outline-primary active">All</button>
+            <button id="filter-concerts" class="btn btn-outline-primary">Concerts</button>
+            <button id="filter-conferences" class="btn btn-outline-primary">Conferences</button>
+            <button id="filter-sports" class="btn btn-outline-primary">Sports</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Events Grid -->
+      <div class="row" id="events-container">
+        <!-- Event 1 -->
+        <div class="col-lg-4 col-md-6 mb-4" data-category="concerts">
+          <div class="card event-card">
+            <div class="event-date">
+              <span class="month">JUN</span>
+              <span class="day">15</span>
+            </div>
+            <img src="images/event-1.jpg" class="card-img-top" alt="Summer Music Festival">
+            <div class="card-body">
+              <h5 class="card-title">Summer Music Festival</h5>
+              <p class="card-text">
+                <i class="fas fa-map-marker-alt me-2"></i>Central Park, New York
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price">0.05 ETH</span>
+                <a href="event-details.html?id=1" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 2 -->
+        <div class="col-lg-4 col-md-6 mb-4" data-category="conferences">
+          <div class="card event-card">
+            <div class="event-date">
+              <span class="month">JUL</span>
+              <span class="day">22</span>
+            </div>
+            <img src="images/event-2.jpg" class="card-img-top" alt="Blockchain Conference">
+            <div class="card-body">
+              <h5 class="card-title">Blockchain Conference 2023</h5>
+              <p class="card-text">
+                <i class="fas fa-map-marker-alt me-2"></i>Tech Center, San Francisco
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price">0.08 ETH</span>
+                <a href="event-details.html?id=2" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 3 -->
+        <div class="col-lg-4 col-md-6 mb-4" data-category="sports">
+          <div class="card event-card">
+            <div class="event-date">
+              <span class="month">AUG</span>
+              <span class="day">10</span>
+            </div>
+            <img src="images/event-3.jpg" class="card-img-top" alt="Championship Finals">
+            <div class="card-body">
+              <h5 class="card-title">Championship Finals</h5>
+              <p class="card-text">
+                <i class="fas fa-map-marker-alt me-2"></i>Sports Arena, Los Angeles
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price">0.12 ETH</span>
+                <a href="event-details.html?id=3" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 4 -->
+        <div class="col-lg-4 col-md-6 mb-4" data-category="concerts">
+          <div class="card event-card">
+            <div class="event-date">
+              <span class="month">SEP</span>
+              <span class="day">5</span>
+            </div>
+            <img src="images/event-jazz.jpg" class="card-img-top" alt="Jazz Night">
+            <div class="card-body">
+              <h5 class="card-title">Jazz Night</h5>
+              <p class="card-text">
+                <i class="fas fa-map-marker-alt me-2"></i>Blue Note, Chicago
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price">0.03 ETH</span>
+                <a href="event-details.html?id=4" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 5 -->
+        <div class="col-lg-4 col-md-6 mb-4" data-category="conferences">
+          <div class="card event-card">
+            <div class="event-date">
+              <span class="month">OCT</span>
+              <span class="day">15</span>
+            </div>
+            <img src="images/event-tech.jpg" class="card-img-top" alt="Tech Summit">
+            <div class="card-body">
+              <h5 class="card-title">Tech Summit 2023</h5>
+              <p class="card-text">
+                <i class="fas fa-map-marker-alt me-2"></i>Convention Center, Seattle
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price">0.07 ETH</span>
+                <a href="event-details.html?id=5" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event 6 -->
+        <div class="col-lg-4 col-md-6 mb-4" data-category="sports">
+          <div class="card event-card">
+            <div class="event-date">
+              <span class="month">NOV</span>
+              <span class="day">20</span>
+            </div>
+            <img src="images/event-marathon.jpg" class="card-img-top" alt="Marathon">
+            <div class="card-body">
+              <h5 class="card-title">City Marathon</h5>
+              <p class="card-text">
+                <i class="fas fa-map-marker-alt me-2"></i>Downtown, Boston
+              </p>
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="price">0.04 ETH</span>
+                <a href="event-details.html?id=6" class="btn btn-primary">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 mb-4 mb-lg-0">
+          <h5 class="text-white mb-4">
+            <i class="fas fa-ticket-alt me-2"></i>BlockTix
+          </h5>
+          <p class="text-light">Revolutionizing event ticketing with blockchain technology. Secure, transparent, and fair for everyone.</p>
+          <div class="social-icons mt-4">
+            <a href="#" class="me-3"><i class="fab fa-twitter"></i></a>
+            <a href="#" class="me-3"><i class="fab fa-discord"></i></a>
+            <a href="#" class="me-3"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-medium"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+          <h5 class="text-white mb-4">Platform</h5>
+          <ul class="list-unstyled footer-links">
+            <li><a href="events.html">Events</a></li>
+            <li><a href="my-tickets.html">My Tickets</a></li>
+            <li><a href="marketplace.html">Marketplace</a></li>
+            <li><a href="#">Create Event</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-md-4 mb-4 mb-md-0">
+          <h5 class="text-white mb-4">Resources</h5>
+          <ul class="list-unstyled footer-links">
+            <li><a href="#">Documentation</a></li>
+            <li><a href="#">FAQs</a></li>
+            <li><a href="#">Support</a></li>
+            <li><a href="#">API</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+          <h5 class="text-white mb-4">Stay Updated</h5>
+          <p class="text-light">Subscribe to our newsletter for the latest updates and events.</p>
+          <div class="input-group mb-3">
+            <input type="email" class="form-control" placeholder="Your email">
+            <button class="btn btn-primary" type="button">Subscribe</button>
+          </div>
+        </div>
+      </div>
+
+      <hr class="mt-4 mb-4 border-light">
+
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-start">
+          <p class="mb-0 text-light">© 2023 BlockTix. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-end">
+          <ul class="list-inline mb-0">
+            <li class="list-inline-item"><a href="#">Privacy Policy</a></li>
+            <li class="list-inline-item"><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script src="js/image-helper.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/event-image-generator.js"></script>
+  <script src="js/events.js"></script>
+</body>
+</html>
